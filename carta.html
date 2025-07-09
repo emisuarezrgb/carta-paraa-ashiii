@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carta para Ashi</title>
+  <style>
+    body, html {
+      margin:0; padding:0; height:100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('fondo_tulipanes.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+    #text-container {
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 30px 40px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      font-size: 1.2rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      position: relative;
+      z-index: 10;
+    }
+    #signature {
+      margin-top: 25px;
+      font-style: italic;
+      text-align: right;
+      font-weight: bold;
+    }
+    #play-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      font-size: 1rem;
+      background: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+    .heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: floatUp 2s forwards;
+      pointer-events: none;
+      z-index: 50;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before { top: -15px; left: 0; }
+    .heart::after { top: 0; left: 15px; }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) rotate(-45deg); }
+      100% { opacity: 0; transform: translateY(-100px) rotate(-45deg); }
+    }
+  </style>
+</head>
+<body>
+  <audio id="musica" src="ser_un_cantante.mp3" preload="auto"></audio>
+  <button id="play-button">🎵 Reproducir canción</button>
+
+  <div id="text-container"></div>
+  <div id="signature">el rompe bolas jaja</div>
+
+  <script>
+    const texto = `Hola mi amorrrr , vengo a molestarte un ratito más jsjs
+
+Solo quería pasar a decirte por aquí , que te amo mucho mucho mucho 
+Que deseo pasar todo el tiempo que me quede contigo cada minuto hasta el final
+Que de verdad deseo estar con vos 
+Deseo hacerte feliz de todas las maneras posibles
+Decirte que de verdad me enamoré de vos por más que recién comience esto cada día te amo más y trataré de demostrártelo cn detalles en cada cosa q pueda 
+Y trataré de ser mejor cada día :) 
+Disculpa por estresarte tanto amor mío 
+Y por ser tan empalagoso Jsjs o empalagué ¿como se decía? Jjsj 
+A lo que voy , quiero estar contigo para siempre y no voy a desperdiciar jamás esta oportunidad de estarlo amor mío 
+No se como ni cuándo ni qué pasó 
+Pero me re gustas me re encantas 
+Y quiero que seas tú siempre mi amor 
+
+Te amo`;
+
+    const container = document.getElementById('text-container');
+    let i = 0;
+
+    function escribir() {
+      if (i < texto.length) {
+        container.textContent += texto.charAt(i);
+        i++;
+        setTimeout(escribir, 40);
+      }
+    }
+    escribir();
+
+    document.body.addEventListener('click', (e) => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${e.clientX - 15}px`;
+      heart.style.top = `${e.clientY - 15}px`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
+    });
+
+    document.getElementById('play-button').addEventListener('click', () => {
+      const musica = document.getElementById('musica');
+      musica.play();
+    });
+  </script>
+</body>
+</html>
